@@ -1,0 +1,57 @@
+//Some Crap
+public ExamMap searchForExams(Period period, Day day)
+    {
+        DatabaseConnection connection = DatabaseConnection.open();
+        connection.connect();
+        
+        ExamMap listOfExams = new ExamMap();
+        
+        connection.getExamFor(day.name(), period.name()).forEachRemaining(r ->
+        {
+            try
+            {
+                String course = (r.getString("COURSE_CODE"));
+                String room = (r.getString("ROOM_NUM"));
+                String day_of_week = (r.getString("DAY_OF_WEEK"));
+                String start_time = (r.getString("START_TIME"));
+                String end_time = (r.getString("END_TIME"));
+                
+                listOfExams.addExam(new Exam(course, day_of_week, start_time, end_time, room));
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        });
+        connection.close();
+        return listOfExams;
+    }
+    
+    public ExamMap searchForExams(Period period, Day day, int username)
+    {
+        DatabaseConnection connection = DatabaseConnection.open();
+        connection.connect();
+        
+        ExamMap listOfExams = new ExamMap();
+        
+        connection.getExamFor(day.name(), period.name(), username).forEachRemaining(r ->
+        {
+            try
+            {
+                String course = (r.getString("COURSE_CODE"));
+                String room = (r.getString("ROOM_NUM"));
+                String day_of_week = (r.getString("DAY_OF_WEEK"));
+                String start_time = (r.getString("START_TIME"));
+                String end_time = (r.getString("END_TIME"));
+                String teacher = (r.getString("TEACHER_ID"));
+                
+                listOfExams.addExam(new Exam(course, day_of_week, start_time, end_time, room));
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        });
+        connection.close();
+        return listOfExams;
+    }
