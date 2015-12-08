@@ -1,0 +1,89 @@
+   
+import com.database.config.DatabaseConnection;
+import com.database.config.Result;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
+public class Course {
+	
+    private String courseCode;
+    private String courseName;
+    private String courseDesc;
+    private String exam;
+    private String roomNum;
+    private String programCode;
+    private int teacher;
+    
+    public Course() 
+    {
+        
+    }
+    
+    public Course(String courseCode, String courseName, String courseDec, String exam, String roomNum, String programCode, int teacherId) 
+    {
+       this.courseCode = courseCode;
+       this.courseName = courseName;
+       this.courseDesc = courseDesc;
+       this.exam = exam;
+       this.roomNum = roomNum;
+       this.programCode = programCode;
+       this.teacher = teacher;
+    }
+
+    public String getCourseID() 
+    {
+        return courseCode;
+    }
+
+    public void setCourseID(String courseID) 
+    {
+        this.courseCode = courseID;
+    }
+
+    public String getCourseName() 
+    {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) 
+    {
+        this.courseName = courseName;
+    }
+    
+  public UserMap<Course> getMap() throws SQLException {
+    UserMap<Course> programs = new UserMap<Course>();
+    DatabaseConnection connection = DatabaseConnection.open();
+    Result result = connection.getCourses();
+    
+    while(result.hasNext()){
+        ResultSet set = result.next();
+        
+        Course course = new Course
+        (
+                set.getString("COURSE_CODE"),
+                set.getString("COURSE_NAME"),
+                set.getString("COURSE_DESC"),
+                set.getString("EXAM"),
+                set.getString("ROOM_NUM"),
+                set.getString("PROGRAM_CODE"),
+                set.getInt("TEACHER_ID")
+        );
+        
+        System.out.println(
+                set.getString("course_code") + " " +
+                set.getString("course_name") + " " + 
+                set.getString("course_desc") + " " + 
+                set.getString("exam") + " " + 
+                set.getString("room_num") + " " +  
+                set.getString("program_code") + " " + 
+                set.getInt("teacher_id")
+        );
+        //programs.put(program);
+    }
+    
+    return programs;
+}
+    
+    
+}
