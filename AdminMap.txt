@@ -1,0 +1,41 @@
+package scheduletest;
+
+import exception.KeyConflictException;
+
+/**
+*
+* @author Trevor Smart
+*/
+
+public class AdminMap<T> extends UserMap<T> {
+	
+	public AdminMap() {
+		super();
+	}
+	
+	public void add(String key, T type) throws KeyConflictException {
+		//add to hashmap
+		//insert into database
+		if (type.equals(Course.class)) {
+			map.put(key, type);
+		} else if (type.equals(Program.class)) {
+			map.put(key, type);
+		} else if (type.equals(Room.class)) {
+			map.put(key, type);
+		} else if (type.equals(StudentGroup.class)) {
+			map.put(key, type);
+		}
+	}
+	
+	public void remove(String key, T type) {
+		if (type.equals(Course.class)) {
+			map.remove(key);
+		} else if (type.equals(Program.class)) {
+			map.remove(key);
+		} else if (type.equals(Room.class)) {
+			map.remove(key);
+		} else if (type.equals(StudentGroup.class)) {
+			map.remove(key);
+		}		
+	}
+}

@@ -1,0 +1,28 @@
+package scheduletest;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+*
+* @author Trevor Smart
+*/
+
+public class UserMap<T> {
+	protected HashMap<String, T> map;
+	
+	public UserMap() {
+		this.map = new HashMap<String, T>();
+	}
+	
+	public T get(String pk) {
+		return map.get(pk);
+	}
+	
+	public List<T> returnList() {
+		List<T> list = new ArrayList<T>(map.values());
+		return list;
+	}
+}
