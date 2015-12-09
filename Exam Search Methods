@@ -55,3 +55,28 @@ public ExamMap searchForExams(Period period, Day day)
         connection.close();
         return listOfExams;
     }
+
+//Add Exam method
+public void addExam(Exam exam)
+    {
+        DatabaseConnection connection = DatabaseConnection.open();
+        connection.connect();
+        
+        connection.addExam(exam.course, exam.room, 0, exam.period, exam.day, convertStoT(exam.startTime), convertStoT(exam.endTime));
+        connection.close();
+
+    }
+//Method to convert a String to a Timestamp
+    public static Timestamp convertStoT(String str_date) {
+    try {
+      DateFormat formatter;
+      formatter = new SimpleDateFormat("dd/MM/yyyy");
+      Date date = (Date) formatter.parse(str_date);
+      java.sql.Timestamp timeStampDate = new Timestamp(date.getTime());
+
+      return timeStampDate;
+    } catch (ParseException e) {
+      System.out.println("Exception :" + e);
+      return null;
+    }
+  }
